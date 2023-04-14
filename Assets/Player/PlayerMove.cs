@@ -15,7 +15,7 @@ public class PlayerMove : MonoBehaviour
 
     Animator myAnimator;
     Transform myTr;
-    float angleZ = -90;
+    public float angleZ = -90;
     string upAnim = "PlayerUp";
     string downAnim = "PlayerDown";
     string rightAnim = "PlayerRight";
