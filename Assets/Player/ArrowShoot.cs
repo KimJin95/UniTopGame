@@ -12,6 +12,9 @@ public class ArrowShoot : MonoBehaviour
     PlayerMove player;
 
     bool inAttack;
+    float shootDelay = 0.25f;
+
+
     void Start()
     {
         bow = Instantiate(bowPrefab, transform.position, Quaternion.identity);
@@ -19,20 +22,16 @@ public class ArrowShoot : MonoBehaviour
         player = GetComponent<PlayerMove>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         //if i press the button(fire3) and inAttack is false then can attack
-        if (Input.GetButtonDown("Fire3") && inAttack == false)  //Use Timer => For No consecutive attacks
+        //Use Timer => For No consecutive attacks
+        if (Input.GetButtonDown("Fire3") && inAttack == false)
             StartCoroutine(Attack());
 
-
-
-
-        float bowZ = -1; //
+        float bowZ = -1;
 
         if (player.angleZ >= 30 && player.angleZ <= 150) bowZ = 1;
-
 
         bow.transform.rotation = Quaternion.Euler(0, 0, player.angleZ);
 
@@ -44,6 +43,11 @@ public class ArrowShoot : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        yield return null;
+        inAttack = true;
+
+        Quaternion rot = Quaternion.Euler(0, 0, player.angleZ);
+        Instantiate(arrowPrefab, transform.position, rot);
+        yield return new WaitForSeconds(shootDelay);
+        inAttack = false;
     }
 }
