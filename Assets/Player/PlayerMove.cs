@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public static int hp = 3;
+    public static string gameState = "playing";
+    bool inDamage = false;
+    float delayTime = 0.25f;
+    SpriteRenderer myRender;
+
     //변수 -> 이동
 
     [SerializeField] float speed;
@@ -20,6 +26,7 @@ public class PlayerMove : MonoBehaviour
     string downAnim = "PlayerDown";
     string rightAnim = "PlayerRight";
     string leftAnim = "PlayerLeft";
+    string deadAnim = "PlayerDead";
 
     string nowAnimation; //now animation
     string oldAnimation; //old animation
@@ -29,12 +36,16 @@ public class PlayerMove : MonoBehaviour
     {
         myRigid = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
-        myTr = GetComponent<Transform>();
+        myRender = GetComponent<SpriteRenderer>();
+        myTr = transform;
+
     }
 
 
     void Update()
     {
+        if (gameState != "playing" || inDamage) return;
+
         axisH = Input.GetAxisRaw("Horizontal");
         axisV = Input.GetAxisRaw("Vertical");
 
@@ -43,6 +54,14 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (inDamage)
+        {
+            float val = Mathf.Sin(Time.time * 50);
+            if (val > 0) myRender.enabled = true;
+            else myRender.enabled = false;
+        }
+
+
         myRigid.velocity = new Vector2(axisH, axisV) * speed;
     }
 
@@ -81,5 +100,49 @@ public class PlayerMove : MonoBehaviour
         }
 
         return angle;
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.transform.CompareTag("Enemy"))
+        {
+            StartCoroutine(GetDamage(other.transform));
+        }
+    }
+
+    IEnumerator GetDamage(Transform enemy)
+    {
+        if (gameState != "playing") yield break; //return;
+
+        inDamage = true;
+
+        //if player take the damage then make hp minus 1 and move back (opposite enemy)
+        hp--;
+        if (hp > 0) //if player still alive
+        {
+            myRigid.velocity = Vector2.zero;
+            Vector2 toPos = (myTr.position - enemy.position).normalized;
+            myRigid.AddForce(toPos * 4, ForceMode2D.Impulse);
+
+        }
+        else Gameover();
+
+
+        yield return new WaitForSeconds(delayTime);
+
+        inDamage = false;
+        myRender.enabled = true;
+
+    }
+
+    private void Gameover()
+    {
+        gameState = "gameover";
+
+        GetComponent<CircleCollider2D>().enabled = false;
+        myRigid.velocity = Vector2.zero;
+        myRigid.gravityScale = 1;
+        myRigid.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+        myAnimator.Play(deadAnim);
+        Destroy(gameObject, 1);
     }
 }
