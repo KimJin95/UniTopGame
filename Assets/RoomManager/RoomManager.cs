@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class RoomManager : MonoBehaviour
 {
-    public static int doorNumber;
+    public static int doorNumber = -1;
 
     void Start()
     {
@@ -14,7 +14,7 @@ public class RoomManager : MonoBehaviour
 
         foreach (var exit in exits)
         {
-            if (exit.doorNumber==doorNumber)
+            if (exit.doorNumber == doorNumber)
             {
                 float x = exit.transform.position.x;
                 float y = exit.transform.position.y;
@@ -32,7 +32,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
-  public static void ChangeScene(string sceneName,int doorNum)
+    public static void ChangeScene(string sceneName, int doorNum)
     {
         SceneManager.LoadScene(sceneName);
         doorNumber = doorNum; //save
