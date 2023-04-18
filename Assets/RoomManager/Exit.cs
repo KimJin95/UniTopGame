@@ -4,20 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public enum ExitDirection { right,keft,down,up}
+public enum ExitDirection { right,left,down,up}
 
 public class Exit : MonoBehaviour
 {
 
     [SerializeField] string sceneName;
-    [SerializeField] int doorNumber;
-    [SerializeField] ExitDirection direction;
+    public int doorNumber;
+    public ExitDirection direction;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(sceneName);  
+           RoomManager.ChangeScene(sceneName,doorNumber);
+
         }
     }
 
