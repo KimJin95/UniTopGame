@@ -24,10 +24,10 @@ public class ArrowShoot : MonoBehaviour
 
     void Update()
     {
-        //if i press the button(fire3) and inAttack is false then can attack
+        //if i press the button(fire3) and inAttack is false and has Arrow then can attack
         //Use Timer => For No consecutive attacks
-        if (Input.GetButtonDown("Fire3") && inAttack == false)
-            StartCoroutine(Attack());
+        if (Input.GetButtonDown("Fire3") && inAttack == false && ItemKeeper.hasArrows > 0)
+            StartCoroutine(Attack()); 
 
         float bowZ = -1;
 
@@ -43,11 +43,17 @@ public class ArrowShoot : MonoBehaviour
 
     private IEnumerator Attack()
     {
+        ItemKeeper.hasArrows--;
+
         inAttack = true;
+
 
         Quaternion rot = Quaternion.Euler(0, 0, player.angleZ);
         Instantiate(arrowPrefab, transform.position, rot);
+
         yield return new WaitForSeconds(shootDelay);
         inAttack = false;
+
+
     }
 }
