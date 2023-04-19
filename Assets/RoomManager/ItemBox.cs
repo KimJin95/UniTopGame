@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class ItemBox : MonoBehaviour
 {
+
+    public int arrangeId;
     [SerializeField] GameObject itemPrefab;
     [SerializeField] Sprite openImage;
 
