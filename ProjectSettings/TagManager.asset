@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - Exit
   - Item
+  - ItemBox
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - 
   - Player
   - Arrow
-  - 
+  - Enemy
   - 
   - 
   - 

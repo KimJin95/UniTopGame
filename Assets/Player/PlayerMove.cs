@@ -44,8 +44,6 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
-        if (gameState != "playing" || inDamage) return;
-
         axisH = Input.GetAxisRaw("Horizontal");
         axisV = Input.GetAxisRaw("Vertical");
 
@@ -54,11 +52,14 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (gameState != "playing") return;
+
         if (inDamage)
         {
             float val = Mathf.Sin(Time.time * 50);
             if (val > 0) myRender.enabled = true;
             else myRender.enabled = false;
+            return;
         }
 
 
