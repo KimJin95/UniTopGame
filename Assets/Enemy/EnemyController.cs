@@ -76,8 +76,8 @@ public class EnemyController : MonoBehaviour
         float dy = playerTr.position.y - transform.position.y;
 
         float rad = Mathf.Atan2(dy, dx);
-        axisH = dx * speed;  //axisH = Mathf.Cos(rad) * speed;
-        axisV = dy * speed;  //axisV = Mathf.Sin(rad) * speed; 
+        axisH = Mathf.Cos(rad) * speed;  //axisH = dx * speed;  
+        axisV = Mathf.Sin(rad) * speed;  //axisV = dy * speed;  
 
         float angleZ = rad * Mathf.Rad2Deg;
 
@@ -108,7 +108,7 @@ public class EnemyController : MonoBehaviour
                 myAnim.Play(deadAnim);
 
                 Destroy(gameObject, 0.5f);
-                
+
             }
         }
     }

@@ -137,6 +137,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Gameover()
     {
+     
         gameState = "gameover";
 
         GetComponent<CircleCollider2D>().enabled = false;
