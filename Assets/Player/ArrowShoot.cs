@@ -20,6 +20,7 @@ public class ArrowShoot : MonoBehaviour
         bow = Instantiate(bowPrefab, transform.position, Quaternion.identity);
         bow.transform.SetParent(transform);
         player = GetComponent<PlayerMove>();
+
     }
 
     void Update()
@@ -27,7 +28,7 @@ public class ArrowShoot : MonoBehaviour
         //if i press the button(fire3) and inAttack is false and has Arrow then can attack
         //Use Timer => For No consecutive attacks
         if (Input.GetButtonDown("Fire3") && inAttack == false && ItemKeeper.hasArrows > 0)
-            StartCoroutine(Attack()); 
+            StartCoroutine(Attack());
 
         float bowZ = -1;
 
@@ -41,19 +42,21 @@ public class ArrowShoot : MonoBehaviour
         bow.transform.position = pos;
     }
 
-    private IEnumerator Attack()
+    public IEnumerator Attack()
     {
-        ItemKeeper.hasArrows--;
+        if (inAttack == false && ItemKeeper.hasArrows > 0)
+        {
 
-        inAttack = true;
+            ItemKeeper.hasArrows--;
 
-
-        Quaternion rot = Quaternion.Euler(0, 0, player.angleZ);
-        Instantiate(arrowPrefab, transform.position, rot);
-
-        yield return new WaitForSeconds(shootDelay);
-        inAttack = false;
+            inAttack = true;
 
 
+            Quaternion rot = Quaternion.Euler(0, 0, player.angleZ);
+            Instantiate(arrowPrefab, transform.position, rot);
+
+            yield return new WaitForSeconds(shootDelay);
+            inAttack = false;
+        }
     }
 }

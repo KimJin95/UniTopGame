@@ -22,8 +22,12 @@ public class ItemData : MonoBehaviour
             case ItemType.arrow: ItemKeeper.hasArrows += count;
                 break;
             case ItemType.life:
-                if (PlayerMove.hp < 3) PlayerMove.hp += count;
-      
+                if (PlayerMove.hp < 3)
+                {
+                    PlayerMove.hp += count;
+                    PlayerPrefs.SetInt("PlayerHp", PlayerMove.hp);
+                }
+
                 break;
         }
 

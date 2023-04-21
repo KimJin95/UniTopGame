@@ -32,6 +32,8 @@ public class PlayerMove : MonoBehaviour
     string oldAnimation; //old animation
     bool isMoving = false;
 
+
+
     void Start()
     {
         myRigid = GetComponent<Rigidbody2D>();
@@ -39,15 +41,30 @@ public class PlayerMove : MonoBehaviour
         myRender = GetComponent<SpriteRenderer>();
         myTr = transform;
 
+        hp = PlayerPrefs.GetInt("PlayerHp");
     }
 
 
     void Update()
     {
-        axisH = Input.GetAxisRaw("Horizontal");
-        axisV = Input.GetAxisRaw("Vertical");
+        if (gameState != "playing" || inDamage) return;
+
+        if (isMoving == false)
+        {
+            axisH = Input.GetAxisRaw("Horizontal");
+            axisV = Input.GetAxisRaw("Vertical");
+
+        }
 
         SetAnimation();
+    }
+
+    public void SetAxis(float h, float v)
+    {
+        axisH = h; axisV = v;
+
+        if (axisH != 0 || axisV != 0) isMoving = true;
+        else isMoving = false;
     }
 
     private void FixedUpdate()
@@ -118,6 +135,7 @@ public class PlayerMove : MonoBehaviour
 
         //if player take the damage then make hp minus 1 and move back (opposite enemy)
         hp--;
+        PlayerPrefs.SetInt("PlayerHp", hp); //실시간 저장
         if (hp > 0) //if player still alive
         {
             myRigid.velocity = Vector2.zero;
@@ -137,7 +155,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Gameover()
     {
-     
+
         gameState = "gameover";
 
         GetComponent<CircleCollider2D>().enabled = false;
