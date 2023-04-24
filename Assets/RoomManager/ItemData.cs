@@ -41,6 +41,7 @@ public class ItemData : MonoBehaviour
 
         }
 
+        SaveDataManager.SetArrangeId(arrangeId, gameObject.tag);
 
         Destroy(gameObject,0.5f);
 

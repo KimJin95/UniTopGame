@@ -114,5 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52cead821f5ed44a804c5a805a9937d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arrangeId: 1
   itemPrefab: {fileID: 8033788566147010873, guid: 453c3bc612920c64380ff4130d352600, type: 3}
   openImage: {fileID: 1801263428120863714, guid: b2bc87e472d674ce982a5319db4d5a4a, type: 3}
+  isClosed: 1

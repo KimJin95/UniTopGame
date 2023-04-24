@@ -9,11 +9,12 @@ public class ItemBox : MonoBehaviour
 {
 
     public int arrangeId;
+
     [SerializeField] GameObject itemPrefab;
-    [SerializeField] Sprite openImage;
+    public Sprite openImage;
 
 
-    bool isClosed = true;
+    public bool isClosed = true;
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -27,6 +28,8 @@ public class ItemBox : MonoBehaviour
             }
 
             GetComponent<SpriteRenderer>().sprite = openImage;
+
+            SaveDataManager.SetArrangeId(arrangeId, gameObject.tag);
         }
     }
 

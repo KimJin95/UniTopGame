@@ -100,6 +100,7 @@ public class EnemyController : MonoBehaviour
             hp--;
             if (hp <= 0)
             {
+                SaveDataManager.SetArrangeId(arrangeId, gameObject.tag);
 
                 GetComponent<CircleCollider2D>().enabled = false;
 

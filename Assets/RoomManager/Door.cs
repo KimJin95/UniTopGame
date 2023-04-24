@@ -13,6 +13,7 @@ public class Door : MonoBehaviour
             if (ItemKeeper.hasKeys > 0)
             {
                 ItemKeeper.hasKeys--;
+                SaveDataManager.SetArrangeId(arrangeId, gameObject.tag);
                 Destroy(this.gameObject);
             }
 
