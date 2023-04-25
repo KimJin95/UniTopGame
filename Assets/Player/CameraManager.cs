@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    [SerializeField] Transform bossTr;
+
     GameObject otherTarget;
 
     void LateUpdate()
@@ -11,8 +13,17 @@ public class CameraManager : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
+            if (otherTarget != null)
+            {
+
+            }
+            else
+            {
+
+                transform.position = new Vector3(player.transform.position.x,
+                    player.transform.position.y, -10);
+            }
             //플레이어의 위치와 연동
-            transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
         }
     }
 }
