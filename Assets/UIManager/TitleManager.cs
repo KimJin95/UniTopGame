@@ -14,6 +14,14 @@ public class TitleManager : MonoBehaviour
     {
         StartBtn.onClick.AddListener(() => { OnClickStartBtn(); });
         ContinueBtn.onClick.AddListener(() => { onClickContinueBtn(); });
+
+        
+
+        string sceneName = PlayerPrefs.GetString("LastScene");
+        if (sceneName == "") ContinueBtn.interactable = false;
+        else ContinueBtn.interactable = true;
+
+        SoundManager.instance.PlayBGM(BGMType.Title);
     }
 
     void OnClickStartBtn()

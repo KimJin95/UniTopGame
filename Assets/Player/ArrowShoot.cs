@@ -48,9 +48,8 @@ public class ArrowShoot : MonoBehaviour
         {
 
             ItemKeeper.hasArrows--;
-
             inAttack = true;
-
+            SoundManager.instance.SEPlay(SEType.Shoot);
 
             Quaternion rot = Quaternion.Euler(0, 0, player.angleZ);
             Instantiate(arrowPrefab, transform.position, rot);

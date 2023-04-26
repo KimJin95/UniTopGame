@@ -158,6 +158,9 @@ public class PlayerMove : MonoBehaviour
 
         gameState = "gameover";
 
+        SoundManager.instance.StopBGM();
+        SoundManager.instance.SEPlay(SEType.GameOver);
+
         GetComponent<CircleCollider2D>().enabled = false;
         myRigid.velocity = Vector2.zero;
         myRigid.gravityScale = 1;

@@ -8,7 +8,7 @@ public class ItemData : MonoBehaviour
 {
     public int arrangeId;
 
-    [SerializeField] ItemType type;
+    public ItemType type;
     [SerializeField] int count;
 
     private void OnTriggerEnter2D(Collider2D other)

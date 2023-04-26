@@ -9,6 +9,12 @@ public class RoomManager : MonoBehaviour
 
     void Start()
     {
+        string sceneName = PlayerPrefs.GetString("LastScene");
+        if (sceneName=="BossStage") SoundManager.instance.PlayBGM(BGMType.InBoss);
+        else SoundManager.instance.PlayBGM(BGMType.InGame);
+
+
+
         GameObject[] enters = GameObject.FindGameObjectsWithTag("Exit");
         Exit[] exits = FindObjectsOfType<Exit>();
 

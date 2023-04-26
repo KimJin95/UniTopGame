@@ -60,7 +60,7 @@ public class Boss : MonoBehaviour
             {
                 myAnim.Play("BossDead");
                 GetComponent<Collider2D>().enabled = false;
-                Destroy(gameObject, 1);
+                Destroy(gameObject, 2);
             }
         }
     }
